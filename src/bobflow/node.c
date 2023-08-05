@@ -1,5 +1,6 @@
 #include "bobflow/node.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 static unsigned int node_id = 0;
 
@@ -10,6 +11,8 @@ bf_node_t *bf_node_new(const char *name) {
 
     node->id = node_id++;
     node->name = name;
+    node->x = 0.0;
+    node->y = 0.0;
     node->next = NULL;
 
     return node;
@@ -17,4 +20,8 @@ bf_node_t *bf_node_new(const char *name) {
 
 void bf_node_free(bf_node_t *node) {
     free(node);
+}
+
+void bf_node_print(bf_node_t *node) {
+    printf("node \"%s\" at (%.3f, %.3f)\n", node->name, node->x, node->y);
 }

@@ -1,16 +1,38 @@
 #include "bobflow/flow.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 
-bf_flow_t *bflow_new(void) {
+bf_flow_t *bflow_new(const char *name) {
     bf_flow_t *bf = malloc(sizeof(bf_flow_t));
     if (bf == NULL) return NULL;
+
+    bf->name = name;
 
     return bf;
 }
 
 void bflow_free(bf_flow_t *bf) {
+    // remove all nodes
+    bf_node_t *node = bf->nodes;
+    while (node != NULL) {
+        bf_node_t *next = node->next;
+        bf_node_free(node);
+        node = next;
+    }
+
     free(bf);
+}
+
+void bflow_print(bf_flow_t *bf) {
+    printf("bobflow \"%s\"\n", bf->name);
+
+    bf_node_t *node = bf->nodes;
+    while (node != NULL) {
+        printf("  ");
+        bf_node_print(node);
+        node = node->next;
+    }
 }
 
 bf_node_t *bflow_add_node(bf_flow_t *bf, const char *name) {

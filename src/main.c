@@ -6,9 +6,10 @@ int main(int argc, char *argv[]) {
     (void)(argc);
     (void)(argv);
 
-    bf_flow_t *bf = bflow_new();
+    bf_flow_t *bf = bflow_new("test");
 
-    printf("Hello World!\n");
+    bflow_add_node(bf, "node1");
+    bflow_print(bf);
 
     bflow_free(bf);
     return 0;
