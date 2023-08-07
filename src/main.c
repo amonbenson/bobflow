@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
 
     bf_node_t *n1 = bflow_add_node(bf, "n1", -1, -0.5);
     bf_node_t *n2 = bflow_add_node(bf, "n2", 1, 0.5);
-    bflow_add_distance_constraint(bf, n1, n2, BF_CONSTRAINT_WEIGHT_HEAVY, 1);
+    bflow_add_distance_constraint(bf, n1, n2, BF_CONSTRAINT_WEIGHT_INSTANT, 1);
 
     bool quit = false;
 
@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
         }
 
         // update all nodes
-        bflow_update(bf, 0.1);
+        bflow_update(bf, 1.0);
 
         // start rendering
         SDL_SetRenderDrawColor(renderer, 35, 40, 45, 255);

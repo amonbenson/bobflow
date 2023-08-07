@@ -35,9 +35,9 @@ void bf_constraint_update(bf_constraint_t *constraint, double dt) {
     bf_constraint_result_t result = constraint->update_cb(constraint);
 
     // apply the weighted forces
-    double t = MIN(1.0, dt * constraint->weight);
-    bf_node_apply_force(constraint->node_a, -result.dx / 2.0 * t, -result.dy / 2.0 * t);
-    bf_node_apply_force(constraint->node_b, result.dx / 2.0 * t, result.dy / 2.0 * t);
+    double w = (1 - exp(-dt * constraint->weight));
+    bf_node_apply_force(constraint->node_a, -result.dx / 2.0 * w, -result.dy / 2.0 * w);
+    bf_node_apply_force(constraint->node_b, result.dx / 2.0 * w, result.dy / 2.0 * w);
 }
 
 
