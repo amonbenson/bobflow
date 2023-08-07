@@ -11,19 +11,31 @@ bf_node_t *bf_node_new(const char *name) {
 
     node->id = node_id++;
     node->name = name;
-    node->x = bf_prop_new(0.0);
-    node->y = bf_prop_new(0.0);
+
+    node->x = 0.0;
+    node->y = 0.0;
+
     node->next = NULL;
 
     return node;
 }
 
 void bf_node_free(bf_node_t *node) {
-    bf_prop_free(node->x);
-    bf_prop_free(node->y);
     free(node);
 }
 
-void bf_node_print(bf_node_t *node) {
-    printf("node \"%s\" at (%.3f, %.3f)\n", node->name, bf_prop_get(node->x), bf_prop_get(node->y));
+void bf_node_update(bf_node_t *node, double dt) {
+    // apply all forces (assume mass = 1, therefore velocity = force)
+    node->x += node->fx * dt;
+    node->y += node->fy * dt;
+
+    // reset forces
+    node->fx = 0.0;
+    node->fy = 0.0;
+}
+
+void bf_node_apply_force(bf_node_t *node, double fx, double fy) {
+    // apply force
+    node->fx += fx;
+    node->fy += fy;
 }

@@ -25,20 +25,12 @@ void bflow_free(bflow_t *bf) {
     free(bf);
 }
 
-void bflow_print(bflow_t *bf) {
-    printf("bobflow \"%s\"\n", bf->name);
-
-    bf_node_t *node = bf->nodes;
-    while (node != NULL) {
-        printf("  ");
-        bf_node_print(node);
-        node = node->next;
-    }
-}
-
-bf_node_t *bflow_add_node(bflow_t *bf, const char *name) {
+bf_node_t *bflow_add_node(bflow_t *bf, const char *name, double x, double y) {
     bf_node_t *node = bf_node_new(name);
     if (node == NULL) return NULL;
+
+    node->x = x;
+    node->y = y;
 
     // add node to the list
     LL_PREPEND(bf->nodes, node);
@@ -56,5 +48,15 @@ void bflow_remove_node(bflow_t *bf, bf_node_id_t node_id) {
             bf_node_free(node);
             return;
         }
+    }
+}
+
+void bflow_update(bflow_t *bf, double dt) {
+    // TODO: update all constraints
+
+    // update all nodes
+    bf_node_t *node;
+    LL_FOREACH(bf->nodes, node) {
+        bf_node_update(node, dt);
     }
 }
