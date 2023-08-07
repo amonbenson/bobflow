@@ -3,11 +3,8 @@
 #include "bobflow/prop.h"
 
 
-typedef int bf_node_id_t;
-
 typedef struct bf_node bf_node_t;
 typedef struct bf_node {
-    bf_node_id_t id;
     const char *name;
 
     double fx, fy;
