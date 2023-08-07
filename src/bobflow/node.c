@@ -25,5 +25,5 @@ void bf_node_free(bf_node_t *node) {
 }
 
 void bf_node_print(bf_node_t *node) {
-    printf("node \"%s\" at (%.3f, %.3f)\n", node->name, bf_prop_get(node->x), bf_prop_get(node->y));
+    printf("node \"%s\" at (%.3f, %.3f)\n", node->name, bf_prop_get_value(node->x), bf_prop_get_value(node->y));
 }
